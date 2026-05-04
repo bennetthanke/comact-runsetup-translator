@@ -89,8 +89,8 @@ if __name__ == "__main__":
     from parse_runsetup import load_runsetup
     from parse_products import load_products
 
-    runsetup_path = "tests/fixtures/softmaple_2026-04-27/runsetup.csv"
-    products_path = "tests/fixtures/softmaple_2026-04-27/allproducts.xml"
+    runsetup_path = "tests/fixtures/sma_2026-04-27/runsetup.csv"
+    products_path = "tests/fixtures/sma_2026-04-27/allproducts.xml"
     mapping_path = "mapping.yaml"
 
     rs = load_runsetup(runsetup_path)

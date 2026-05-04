@@ -4,7 +4,7 @@ Diff harness: compare match_all() predictions against answer_key.csv ground trut
 Partial-fixture-aware: only diffs thicknesses present in answer_key.csv.
 
 Usage:
-    python tests/check_match.py tests/fixtures/softmaple_2026-04-27
+    python tests/check_match.py tests/fixtures/sma_2026-04-27
 """
 from __future__ import annotations
 

@@ -276,7 +276,7 @@ def _parse_percent(s):
 if __name__ == "__main__":
     import sys
 
-    default = "tests/fixtures/softmaple_2026-04-27/runsetup.csv"
+    default = "tests/fixtures/sma_2026-04-27/runsetup.csv"
     path = sys.argv[1] if len(sys.argv) > 1 else default
     rs = load_runsetup(path)
 

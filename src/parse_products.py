@@ -90,7 +90,7 @@ def _to_float(s):
 if __name__ == "__main__":
     import sys
     from collections import Counter
-    default = "tests/fixtures/softmaple_2026-04-27/allproducts.xml"
+    default = "tests/fixtures/sma_2026-04-27/allproducts.xml"
     path = sys.argv[1] if len(sys.argv) > 1 else default
     products = load_products(path)
     print(f"Loaded {len(products)} products from {path}\n")

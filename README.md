@@ -9,7 +9,7 @@ assignments.
 **Capture loop is online.** The end-to-end pipeline runs:
 parse Run Set Up → run rules → diff against ground-truth answer key.
 
-- **Fixture #1:** `tests/fixtures/softmaple_2026-04-27/` — 8/4 Soft Maple,
+- **Fixture #1:** `tests/fixtures/sma_2026-04-27/` — 8/4 Soft Maple,
   partial (8/4 verified product-by-product; 4/4 and 10/4 not backfilled).
 - **Mapping version:** v0.7 (`mapping.yaml`).
 - **Baseline diff vs ground truth (8/4 SMA):** 5 correct · 3 extras · 2 missing.
@@ -90,7 +90,7 @@ comact-runsetup-translator/
 └── tests/
 ├── check_match.py          diff harness — predicted vs answer_key.csv
 └── fixtures/
-└── softmaple_2026-04-27/
+└── sma_2026-04-27/
 ├── runsetup.xlsx
 ├── runsetup.csv
 ├── allproducts.xml
@@ -115,7 +115,7 @@ comact-runsetup-translator/
 .venvScriptsActivate.ps1
 pip install -r requirements.txt
 Run the diff harness against the seed fixture
-python tests/check_match.py tests/fixtures/softmaple_2026-04-27
+python tests/check_match.py tests/fixtures/sma_2026-04-27
 
 Expected output today: `5 correct · 3 extras · 2 missing`.
 
