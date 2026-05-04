@@ -85,6 +85,7 @@ def match_all(runsetup, products, mapping):
 
 
 if __name__ == "__main__":
+    from collections import defaultdict
     from parse_runsetup import load_runsetup
     from parse_products import load_products
 
@@ -97,7 +98,8 @@ if __name__ == "__main__":
     mapping = load_mapping(mapping_path)
 
     print(
-        f"Run: {rs.species_raw} ({rs.species}), {rs.date}, {len(rs.lumber_rows)} Lumber rows"
+        f"Run: {rs.species_raw} ({rs.species}), {rs.date}, "
+        f"{len(rs.lumber_rows)} Lumber rows"
     )
     print(
         "Catalog: "
@@ -106,8 +108,8 @@ if __name__ == "__main__":
     )
 
     results, w_unmapped, l_unmapped = match_all(rs, products, mapping)
-    unique = {}
 
+    unique = {}
     for row, matches in results:
         header = (
             f"{row.destination:8s} {row.thick:5s} {row.grade_code:3s} "
@@ -124,25 +126,27 @@ if __name__ == "__main__":
     print(f"Unique active products predicted: {len(unique)}")
     print("Target (from 4/27/26 screenshot):  21")
     print("=" * 70)
+
     if w_unmapped:
         print(f"\nWidth tokens not in mapping.yaml: {sorted(w_unmapped)}")
     if l_unmapped:
         print(f"Length tokens not in mapping.yaml: {sorted(l_unmapped)}")
 
-# ----- diagnostic: show every product available for this species -----
-from collections import defaultdict
-species_filter = "SMA"
-print()
-print("=" * 70)
-print(f"Catalog dump: all {species_filter} products grouped by thick → grade")
-print("=" * 70)
-by_thick = defaultdict(list)
-for p in products:
-    if p.species == species_filter:
-        by_thick[p.thick].append(p)
-for thick in sorted(by_thick.keys()):
-    plist = by_thick[thick]
-    print(f"\n--- {thick} ({len(plist)} products) ---")
-    for p in sorted(plist, key=lambda x: (x.grade, x.color, x.width_token)):
-        print(f"  [{p.instance_id}] {p.grade:25} {p.color:6} "
-              f"w={p.width_token:15} l={p.length_token:15}  {p.name}")
+    # ----- diagnostic: show every product available for this species -----
+    species_filter = "SMA"
+    print()
+    print("=" * 70)
+    print(f"Catalog dump: all {species_filter} products grouped by thick → grade")
+    print("=" * 70)
+    by_thick = defaultdict(list)
+    for p in products:
+        if p.species == species_filter:
+            by_thick[p.thick].append(p)
+    for thick in sorted(by_thick.keys()):
+        plist = by_thick[thick]
+        print(f"\n--- {thick} ({len(plist)} products) ---")
+        for p in sorted(plist, key=lambda x: (x.grade, x.color, x.width_token)):
+            print(
+                f"  [{p.instance_id}] {p.grade:25} {p.color:6} "
+                f"w={p.width_token:15} l={p.length_token:15}  {p.name}"
+            )

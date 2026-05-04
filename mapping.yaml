@@ -3,72 +3,71 @@
 # never bury rules in code.
 
 # Run Set Up grade code -> allowed Comact grade strings on a product.
+# mapping.yaml v0.5 — Run Set Up codes → Comact grade/color names.
+# Validated against the Soft Maple 4/27/26 fixture.
+
 grade_map:
   PR:
-    # Prime = FAS + SEL family. Color/length narrow it down further.
-    - "FAS OPT"
+    - FAS OPT
     - "FAS OPT 6-7'"
-    - "FAS9050 OPT"
-    - "FAS1W OPT"
-    - "FAS2W OPT"
-    - "FAS QUARTER SAW OPT"
-    - "FAS STAIN"
-    - "FAS STAIN 2ND SPECIE"
-    - "FAS2CHPY OPT"
-    - "FASS OPT"
-    - "FASB OPT"
-    - "FASR OPT"
-    - "FASSAP OPT"
-    - "SEL OPT"
-    - "SEL SAP OPT"
-    - "SEL9050 OPT"
-    - "SEL1W OPT"
-    - "SEL2W OPT"
+    - FASS OPT
+    - FASB OPT
+    - FASR OPT
+    - FASSAP OPT
+    - FAS QUARTER SAW OPT
+    - FAS STAIN
+    - FAS STAIN 2ND SPECIE
+    - FAS2CHPY OPT
+    - FAS9050 OPT
+    - SEL OPT
+    - SEL SAP OPT
+    - SEL9050 OPT
+    - SEL1W OPT
+    - SEL2W OPT
   1C:
-    - "1COM OPT"
-    - "1COM SAP OPT"
-    - "1COMB OPT"
-    - "1COM9050 OPT"
+    - 1COM OPT
+    - 1COM SAP OPT
+    - 1COMB OPT
+    - 1COM9050 OPT
   2C:
-    - "2COM OPT"
-    - "2COM SAP OPT"
+    - 2COM OPT
+    - 2COM SAP OPT
   3A:
-    - "3ACOM OPT"
+    - 3ACOM OPT
   3B:
-    - "3B OPT"
+    - 3B OPT
   SG:
-    # Sub-grade catch-all. Per the Prolam note ("all 3b — all sound pallet —
-    # all brown 1&2com here") we may need to broaden this. Confirm w/ answer key.
-    - "SUBG OPT"
+    - SUBG OPT
+    - 3B OPT          # "all 3b" callout
+    - WORMY           # "sound pallet" — wormy sound is structural pass
+    - WORMY MARK      # ditto, marked variant
+    - 1COMB OPT       # "brown 1com"
+    - CHAR OPT        # not in SMA catalog; harmless across species
 
-# Run Set Up color code -> allowed Comact color descriptors on a product.
 color_map:
   UNSEL:
-    - "Unsel"
-    - "?"   # grades that don't enforce color (3B OPT, WORMY, etc.)
-  SAP+BTR:
-    - "SAP"
+    - Unsel
     - "?"
+    - SAP             # UNSEL = "no color sort enforced" → accepts SAP too
+    - 1White
+  SAP+BTR:
+    - SAP             # strict SAP only
 
-# Comact width tokens -> width band in inches.
-# A Run Set Up row's min_width is satisfied iff token.min >= row.min_width.
 width_tokens:
-  "RandomW":      { min: 0,    max: 99   }
-  "Rw SEL":       { min: 4,    max: 99   }   # SEL family; refine if needed
-  "Rw RO SEL":    { min: 4,    max: 99   }   # red-oak SEL family; refine
-  "Rw 4 1/2":     { min: 4.5,  max: 99   }
-  "Rw > 4 3/4":   { min: 4.75, max: 99   }
-  "Rw > 5":       { min: 5.0,  max: 99   }
-  "Rw 5-8":       { min: 5.0,  max: 8.0  }
-  "Rw > 5 1/2":   { min: 5.5,  max: 99   }
-  "Rw > 6":       { min: 6.0,  max: 99   }
-  "Rw 6-8":       { min: 6.0,  max: 8.0  }
-  "Rw > 8":       { min: 8.0,  max: 99   }
-  "Rw > 10 1/2":  { min: 10.5, max: 99   }
+  RandomW:        { min: 0,    max: 99 }
+  "Rw SEL":       { min: 4,    max: 99 }
+  "Rw RO SEL":    { min: 4,    max: 99 }
+  "Rw 4 1/2":     { min: 4.5,  max: 99 }
+  "Rw > 4 3/4":   { min: 4.75, max: 99 }
+  "Rw 5-8":       { min: 5,    max: 8 }
+  "Rw > 5":       { min: 5,    max: 99 }
+  "Rw > 5 1/2":   { min: 5.5,  max: 99 }
+  "Rw > 6":       { min: 6,    max: 99 }
+  "Rw 6-8":       { min: 6,    max: 8 }
+  "Rw > 8":       { min: 8,    max: 99 }
+  "Rw > 10 1/2":  { min: 10.5, max: 99 }
 
-# Comact length tokens -> length band in feet.
-# A Run Set Up row's min_length is satisfied iff token.min >= row.min_length.
 length_tokens:
-  'RandomL +3"':   { min: 7.0, max: 16.0 }   # 7'+ random length
-  "Sel 6":         { min: 6.0, max: 6.0  }   # 6' selects bucket
-  "FAS OPT 6-7'":  { min: 6.0, max: 7.0  }   # explicit 6-7' bucket
+  'RandomL +3"':      { min: 7,  max: 16 }
+  "Sel 6":            { min: 6,  max: 6 }
+  "FAS OPT 6-7'":     { min: 6,  max: 7 }
