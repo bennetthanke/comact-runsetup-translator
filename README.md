@@ -75,28 +75,6 @@ Each captured setup is a labeled training example:
 5. (Phase 1C) A second `Comact Setup` sheet in the same workbook —
    deduped active products grouped by thickness, printable for the operator.
 
-## Repo layout
-comact-runsetup-translator/
-├── README.md                   ← you are here
-├── requirements.txt            openpyxl, pyyaml, pytest
-├── mapping.yaml                v0.7 — grade_map, color_map, width/length predicates
-├── translate.py                CLI entry point (TODO — see Roadmap)
-├── docs/
-│   └── architecture.md
-├── src/
-│   ├── parse_runsetup.py       load_runsetup(path) → normalized rows
-│   ├── parse_products.py       load_products(xml_path) → product list
-│   └── match.py                load_mapping / match_for_row / match_all
-└── tests/
-├── check_match.py          diff harness — predicted vs answer_key.csv
-└── fixtures/
-└── softmaple_2026-04-27/
-├── runsetup.xlsx
-├── runsetup.csv
-├── allproducts.xml
-└── answer_key.csv  8/4 only (partial fixture)
-
-
 ## Public API
 
 - `parse_runsetup.load_runsetup(path)` — returns object with
