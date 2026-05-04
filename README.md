@@ -13,10 +13,6 @@ selections for the Wagner Lumber mill in Owego, NY.
 - (Phase 1C) Adds a `Comact Setup` sheet — printable, deduped, grouped by
   thickness — for the optimizer operator
 
-## Status
-
-Phase 1A (Python prototype). Full plan in the Notion planning doc.
-
 ## Quick start
 
 python -m venv .venv
