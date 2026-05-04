@@ -58,10 +58,29 @@ def product_key(p):
 
 def main(fixture_dir: Path):
     runsetup_path = fixture_dir / "runsetup.csv"
-    products_path = fixture_dir / "allproducts.xml"
     answer_key_path = fixture_dir / "answer_key.csv"
     mapping_path = ROOT / "mapping.yaml"
 
+    # Resolve catalog: prefer shared _catalogs/ via catalog.txt; fall back to
+    # legacy per-fixture allproducts.xml so unmigrated fixtures still work.
+    catalog_pointer = fixture_dir / "catalog.txt"
+    legacy_xml = fixture_dir / "allproducts.xml"
+    if catalog_pointer.exists():
+        catalog_name = catalog_pointer.read_text(encoding="utf-8").strip()
+        products_path = fixture_dir.parent / "_catalogs" / catalog_name
+        if not products_path.exists():
+            sys.exit(
+                f"catalog.txt points to '{catalog_name}' but "
+                f"{products_path} does not exist."
+            )
+    elif legacy_xml.exists():
+        products_path = legacy_xml
+    else:
+        sys.exit(
+            f"No catalog found for {fixture_dir.name}: "
+            f"expected either catalog.txt or allproducts.xml."
+        )
+        
     runsetup = load_runsetup(runsetup_path)
     products = load_products(products_path)
     mapping = load_mapping(mapping_path)
