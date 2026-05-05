@@ -4,6 +4,7 @@ using the rules in mapping.yaml.
 """
 from __future__ import annotations
 
+from collections import defaultdict
 from pathlib import Path
 import yaml
 
@@ -62,9 +63,6 @@ def match_for_row(row, products, run_species, mapping,
 
         matches.append(p)
     return matches
-
-from collections import defaultdict
-
 
 def apply_multi_destination_union(rows, products, run_species, mapping, predicted):
     """
@@ -168,13 +166,19 @@ def match_all(runsetup, products, mapping):
 
 
 if __name__ == "__main__":
-    from collections import defaultdict
+    import sys
     from parse_runsetup import load_runsetup
     from parse_products import load_products
 
-    runsetup_path = "tests/fixtures/sma_2026-04-27/runsetup.csv"
-    products_path = "tests/fixtures/sma_2026-04-27/allproducts.xml"
-    mapping_path = "mapping.yaml"
+    REPO_ROOT = Path(__file__).resolve().parent.parent
+
+    # Default smoke-test fixture. Override with: python src/match.py <fixture-dir>
+    fixture = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO_ROOT / "tests" / "fixtures" / "sma_2026-04-27"
+
+    catalog_txt = (fixture / "catalog.txt").read_text().strip()
+    runsetup_path = str(fixture / "runsetup.csv")
+    products_path = str(REPO_ROOT / "tests" / "fixtures" / "_catalogs" / catalog_txt)
+    mapping_path = str(REPO_ROOT / "mapping.yaml")
 
     rs = load_runsetup(runsetup_path)
     products = load_products(products_path)

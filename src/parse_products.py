@@ -90,8 +90,15 @@ def _to_float(s):
 if __name__ == "__main__":
     import sys
     from collections import Counter
-    default = "tests/fixtures/sma_2026-04-27/allproducts.xml"
+
+    REPO_ROOT = Path(__file__).resolve().parent.parent
+    CATALOGS = REPO_ROOT / "tests" / "fixtures" / "_catalogs"
+    # Default to the most recent catalog (allproducts_YYYY-MM-DD.xml sorts correctly).
+    candidates = sorted(CATALOGS.glob("allproducts_*.xml"))
+    default = str(candidates[-1]) if candidates else None
     path = sys.argv[1] if len(sys.argv) > 1 else default
+    if path is None:
+        sys.exit(f"No catalog found in {CATALOGS}")
     products = load_products(path)
     print(f"Loaded {len(products)} products from {path}\n")
     print("First 5 products:")
