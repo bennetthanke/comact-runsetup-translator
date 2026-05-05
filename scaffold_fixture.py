@@ -92,6 +92,19 @@ def scaffold(species: str, iso_date: str, repo_root: Path) -> Path:
         writer = csv.writer(f)
         writer.writerow(["thick", "grade", "color", "width_token", "length_token"])
 
+    # live_counts.txt — comment-only template. Reader in check_match.py skips
+    # comment-only files, so this stays silent until you append a real line at
+    # capture time. Catches catalog drift the per-product diff can't see.
+    live_counts = fixture_dir / "live_counts.txt"
+    live_counts.write_text(
+        "# Per-species live counts captured at the Comact.\n"
+        "# Format: [<SPECIES>] active=<N> available=<N> total=<N>\n"
+        "# Numbers come from the bottom-of-pane counts when the species filter is set.\n"
+        "# Append a real line below at capture time (or delete this file if skipped).\n"
+        f"# Example: [{species.upper()}] active=25 available=35 total=60\n",
+        encoding="utf-8",
+    )
+
     # README.md stub — reminds you what goes where, in case you forget.
     readme = fixture_dir / "README.md"
     readme.write_text(
@@ -104,6 +117,8 @@ def scaffold(species: str, iso_date: str, repo_root: Path) -> Path:
         f"- `screenshots/<thick>_active.jpg` — Active Products, per thickness\n"
         f"- `screenshots/<thick>_available.jpg` — Available Products, per thickness\n"
         f"- `notes/<thick>.m4a` — voice memo if a deselect was non-obvious\n"
+        f"- `live_counts.txt` — append `[<SPECIES>] active=N available=N total=N` from\n"
+        f"  the bottom-of-pane counts at the Comact (template pre-seeded)\n"
         f"\n"
         f"Then transcribe screenshots into `answer_key.csv` and run:\n"
         f"```\n"
