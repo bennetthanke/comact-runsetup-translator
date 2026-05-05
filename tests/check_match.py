@@ -97,6 +97,26 @@ def main(fixture_dir: Path):
         return
 
     answer_key = load_answer_key(answer_key_path)
+
+    # Pre-flight: catch catalog gaps before bucketing predictions.
+    # If the answer key references products that don't exist in the catalog,
+    # no amount of rule tuning will close the gap — the catalog itself needs
+    # updating (re-pull AllProducts.xml or hand-add the missing entries).
+    # Reports as a distinct failure mode (exit 2) instead of being silently
+    # bucketed into "MISSING (false negatives)" — that conflation is what
+    # cost ~5 turns of diagnosis on the FAS OPT Unsel HMW gap (2026-05-05).
+    catalog_keys = {product_key(p) for p in products}
+    catalog_gaps = answer_key - catalog_keys
+    if catalog_gaps:
+        print("⚠️  CATALOG GAP — answer key contains products not in catalog:")
+        for p in sorted(catalog_gaps):
+            print(f"  {p[0]:5} {p[1]:18} {p[2]:6} w={p[3]:18} l={p[4]}")
+        print()
+        print("Fix the catalog (add to AllProducts.xml or re-pull from the live")
+        print("Comact) before tuning mapping.yaml — rule changes can't conjure")
+        print("products that don't exist in the master catalog.")
+        sys.exit(2)
+
     documented = {k[0] for k in answer_key}
 
     pred_in_scope = {p for p in predicted_keys if p[0] in documented}
