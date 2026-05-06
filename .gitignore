@@ -244,3 +244,6 @@ env/
 # ...EXCEPT the test fixtures, which ARE the regression tests
 !tests/fixtures/**/*.xlsx
 !tests/fixtures/**/*.xlsm
+# One-time dump_catalog.py audit-trail snapshots are tracked explicitly with -f.
+# Future dumps stay local.
+tests/fixtures/_catalogs/dump_*.txt
