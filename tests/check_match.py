@@ -187,7 +187,7 @@ def main(fixture_dir: Path):
         print()
 
     dump("EXTRA (false positives)", extra)
-    dump("MISSING-RULE (false negatives — catalog gaps caught by pre-flight)", missing)
+    dump("MISSING-RULE (false negatives —  gaps caught by pre-flight)", missing)
     if not extra and not missing:
         print(" Perfect match across documented thicknesses.")
 
