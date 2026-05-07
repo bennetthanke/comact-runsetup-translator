@@ -9,7 +9,6 @@ Usage:
 from __future__ import annotations
 
 import csv
-from marshal import dump
 import sys
 from pathlib import Path
 
