@@ -2,11 +2,16 @@
 # Translates Run Set Up grade/color codes to Comact catalog grade/color codes.
 # All translation rules live here as data, not code.
 #
-# Version: v0.9.1 (LOCKED 2026-05-06)
-# Stage 1 status: HMW 21/0/5 (recall 81%, precision 100%) · SMA 6/3/1 (recall 86%, precision 67%) · BIRCH 5/0/1 (recall 83%, precision 100%)
+# Version: v0.10 (2026-05-07)
+# Stage 1 status: HMW 21/0/5 · SMA 6/3/1 · BIRCH 6/0/0 · ASH 13/0/2 · CHERRY 15/0/1 · TUL 7/1/0
 #
 # Changelog
-#  v0.9.1— Remove dead FAS OPT [Unsel] HMW [4/4, 6/4] auto_activate block.
+#  v0.10 — Add FAS OPT to grade_map.PR (BIRCH/ASH/TUL evidence; 6 data points).
+#          Add FAS9050 OPT + FASR OPT to grade_map.PR (CHERRY-only catalog; 5 data points).
+#          Add "?" to 3ACOM auto_activate colors (CHERRY-isolated; closes 2 cherry missings).
+#          Add 3B OPT ["?"] auto_activate at [4/4, 5/4] ANY (SMA/BIRCH/CHERRY/TUL evidence; 4 data points).
+#          Idempotent at HMW (catalog has 3B OPT × HMW × 4/4 × ?, AK has it, current rules already predict it).
+# v0.9.1 — Remove dead FAS OPT [Unsel] HMW [4/4, 6/4] auto_activate block.
 #          Catalog has zero FAS OPT × HMW products at any thickness, so the
 #          rule was firing against an empty catalog intersection and
 #          activating nothing. The 2 phantom catalog entries that v0.9
@@ -14,7 +19,7 @@
 #          by mistake at the live UI on Mon 5/4 PM and deactivated 5/6 AM.
 #          Companion catalog refresh: dropped 5/4 XML + repointed every
 #          fixture's catalog.txt to allproducts_2026-05-06.xml.
-#  v0.9  — RETRACTED. Catalog patch + auto_activate were both based on a
+#   v0.9 — RETRACTED. Catalog patch + auto_activate were both based on a
 #          misread of operator-transient UI state, not a real catalog gap.
 #   v0.8 — Move FASS OPT + SEL SAP OPT out of grade_map.PR into auto_activate@8/4
 #          for SMA + HMW (was overshooting at 4/4 + 6/4 HMW).
@@ -26,7 +31,7 @@
 #          Baseline diff harness validated against fixtures/sma_2026-04-27.
 
 grade_map:
-  PR:   [SEL OPT]            # ← was [FAS OPT, FASS OPT, SEL OPT, SEL SAP OPT]
+  PR:   [SEL OPT, FAS OPT, FAS9050 OPT, FASR OPT]
   SEL:  [SEL OPT, SEL SAP OPT]
   "1C": [1COM OPT, 1COM SAP OPT, 1COMB OPT]
   "2C": [2COM OPT, 2COM SAP OPT]
@@ -36,9 +41,14 @@ grade_map:
 
 auto_activate:
   - grade: 3ACOM OPT
-    colors: [SAP, Unsel]
+    colors: [SAP, Unsel, "?"]
     species: ANY
     thicknesses: ANY
+
+  - grade: 3B OPT
+    colors: ["?"]
+    species: ANY
+    thicknesses: ["4/4", "5/4"]
 
   # NEW: FASS OPT + SEL SAP OPT only fire at 8/4, where multi-dest union is real
   - grade: FASS OPT
