@@ -2,10 +2,12 @@
 # Translates Run Set Up grade/color codes to Comact catalog grade/color codes.
 # All translation rules live here as data, not code.
 #
-# Version: v0.10 (2026-05-07)
-# Stage 1 status: HMW 21/0/5 · SMA 6/3/1 · BIRCH 6/0/0 · ASH 13/0/2 · CHERRY 15/0/1 · TUL 7/1/0
+# Version: v0.10.1 (2026-05-07)
+# Stage 1 status: HMW 21/0/5 · SMA 6/3/1 · BIRCH 6/0/0 · ASH 13/0/2 · CHERRY 15/0/1 · TUL 7/1/0 · ROK 21/0/0 
 #
 # Changelog
+#v0.10.1 — Add FAS STAIN ["?"] auto_activate at ROK [4/4] (ROK fixture evidence; 1 data point).
+#          Closes rok_2026-05-07 to 21/21.
 #  v0.10 — Add FAS OPT to grade_map.PR (BIRCH/ASH/TUL evidence; 6 data points).
 #          Add FAS9050 OPT + FASR OPT to grade_map.PR (CHERRY-only catalog; 5 data points).
 #          Add "?" to 3ACOM auto_activate colors (CHERRY-isolated; closes 2 cherry missings).
@@ -74,6 +76,11 @@ auto_activate:
     species: [HMW]
     thicknesses: ["8/4", "10/4", "12/4", "16/4"]
     confidence: provisional
+
+  - grade: FAS STAIN
+    colors: ["?"]
+    species: [ROK]
+    thicknesses: ["4/4"]
 
 color_map:
   UNSEL:    [Unsel, "?", SAP, 1White]
