@@ -3,9 +3,10 @@
 # All translation rules live here as data, not code.
 #
 # Version: v0.11 (2026-05-13)
-# Stage 1 status (projected, pending suite re-run):
-#   HMW 24/0/2 · SMA 6/3/1 · BIRCH 6/0/0 · ASH 13/0/2 ·
+# Stage 1 status (v0.11 locked, 2026-05-13):
+#   HMW 24/0/2 · SMA-1 7/3/0 · BIRCH 6/0/0 · ASH 13/0/2 ·
 #   CHERRY 15/0/1 · TUL 7/1/0 · ROK 21/0/0 · SMA-2 19/2/2
+#   Cumulative: 112/6/7 (recall 94.1%, precision 94.9%)
 #
 # Changelog
 # v0.11 — Revert Fix B's 8/4-only scope; auto_activate FASS OPT [SAP] + SEL SAP OPT [SAP]
